@@ -8,7 +8,7 @@ logging:
     path: log
 spring:
   application:
-    name: user-service
+    name: gateway
     cloud:
       gateway:
         discovery:
