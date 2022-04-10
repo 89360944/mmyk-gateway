@@ -1,0 +1,27 @@
+server:
+  port: 8060
+logging:
+  level:
+    root: info
+    com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
+  file:
+    path: log
+spring:
+  application:
+    name: user-service
+    cloud:
+      gateway:
+        discovery:
+          locator:
+            enabled: true
+        routes:
+          - id: user-service
+            uri: lb://user-service
+            predicates:
+              - Path=/user/**
+            filters:
+              - RewritePath=/user/(?<path>.*), /$\{path}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://182.254.192.61:8761/eureka/
