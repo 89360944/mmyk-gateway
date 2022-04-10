@@ -18,9 +18,9 @@ spring:
           - id: user-service
             uri: lb://user-service
             predicates:
-              - Path=/user/**
-            filters:
-              - RewritePath=/user/(?<path>.*), /$\{path}
+              - Path=/site/**
+#            filters:
+#              - RewritePath=/site/(?<path>.*), /$\{path}
 eureka:
   client:
     serviceUrl:
