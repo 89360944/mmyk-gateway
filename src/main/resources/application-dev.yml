@@ -14,9 +14,10 @@ spring:
         discovery:
           locator:
             enabled: true
+            lower-case-service-id: true
         routes:
           - id: user-service
-            uri: lb://USER-SERVICE
+            uri: lb://user-service
             predicates:
               - Path=/user-service/**
             filters:
@@ -26,4 +27,4 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://182.254.192.61:8761/eureka/
+      defaultZone: http://172.17.0.3:8761/eureka/
