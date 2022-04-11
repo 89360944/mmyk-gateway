@@ -14,12 +14,12 @@ spring:
         discovery:
           locator:
             enabled: true
-            lower-case-service-id: true
+#            lower-case-service-id: true
         routes:
         - id: user-service
           uri: lb://user-service
           predicates:
-          - Path=/user-service/**
+          - Path=/user/**
           filters:
           - StripPrefix=1
 #            filters:
