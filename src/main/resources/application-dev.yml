@@ -13,11 +13,12 @@ spring:
       gateway:
         discovery:
           locator:
-            enabled: true
+            enabled: false
 #            lower-case-service-id: true
         routes:
         - id: user-service
-          uri: lb://user-service
+#          uri: lb://user-service
+          uri: http://172.17.0.4:8080
           predicates:
           - Path=/user-service/**
           filters:
