@@ -28,11 +28,11 @@ spring:
           filters:
             - StripPrefix=1
         - id: openapi
-            uri: http://182.254.192.61:8060
-            predicates:
-              - Path=/v3/api-docs/**
-            filters:
-              - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+          uri: http://182.254.192.61:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 #spring:
 #  application:
 #    name: gateway
