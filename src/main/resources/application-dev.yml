@@ -67,5 +67,5 @@ eureka:
 springdoc:
   swagger-ui:
     urls:
-      - name: organization
+      - name: buyer
         url: /v3/api-docs/buyer
