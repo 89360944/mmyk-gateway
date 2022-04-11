@@ -24,7 +24,7 @@ spring:
         - id: buyerg
           uri: lb://buyer-service
           predicates:
-            - Path=/buyer/**
+            - Path=/buyer-service/**
           filters:
             - StripPrefix=1
 #spring:
