@@ -24,9 +24,15 @@ spring:
         - id: buyerg
           uri: lb://buyer-service
           predicates:
-            - Path=/buyer-service/**
+            - Path=/buyer/**
           filters:
             - StripPrefix=1
+        - id: openapi
+            uri: http://182.254.192.61:${server.port}
+            predicates:
+              - Path=/v3/api-docs/**
+            filters:
+              - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 #spring:
 #  application:
 #    name: gateway
@@ -58,3 +64,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://182.254.192.61:8761/eureka/
+springdoc:
+  swagger-ui:
+    urls:
+      - name: organization
+        url: /v3/api-docs/buyer
