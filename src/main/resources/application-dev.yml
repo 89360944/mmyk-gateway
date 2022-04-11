@@ -53,6 +53,8 @@ spring:
 ##            filters:
 ##              - RewritePath=/user-service/(?<path>.*), /$\{path}
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://182.254.192.61:8761/eureka/
