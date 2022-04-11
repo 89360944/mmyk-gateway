@@ -19,9 +19,9 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/user-service/**
+          - Path=/user-service/**
           filters:
-            - StripPrefix=1
+          - StripPrefix=1
 #            filters:
 #              - RewritePath=/user-service/(?<path>.*), /$\{path}
 eureka:
