@@ -15,12 +15,12 @@ spring:
         locator:
           enabled: true
       routes:
-#        - id: host_route
-#          uri: http://182.254.192.61:8080
-#          predicates:
-#            - Path=/buyer-service/**
-#          filters:
-#            - StripPrefix=1
+        - id: host_route
+          uri: http://182.254.192.61:8080
+          predicates:
+            - Path=/buyer-service2/**
+          filters:
+            - StripPrefix=1
         - id: buyerg
           uri: lb://buyer-service
           predicates:
