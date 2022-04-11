@@ -28,7 +28,7 @@ spring:
           filters:
             - StripPrefix=1
         - id: openapi
-            uri: http://182.254.192.61:${server.port}
+            uri: http://182.254.192.61:8060
             predicates:
               - Path=/v3/api-docs/**
             filters:
