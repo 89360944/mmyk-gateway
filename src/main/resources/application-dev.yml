@@ -66,7 +66,6 @@ eureka:
       defaultZone: http://182.254.192.61:8761/eureka/
 springdoc:
   swagger-ui:
-    use-root-path: true
     urls:
       - name: buyer
-        url: /v3/api-docs/buyer
+        url: http://182.254.192.61:8060/v3/api-docs/buyer
