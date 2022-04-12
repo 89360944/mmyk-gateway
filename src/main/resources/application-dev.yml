@@ -69,4 +69,6 @@ springdoc:
     urls:
       - name: buyer
         url: http://182.254.192.61:8060/v3/api-docs/buyer
+      - name: buyer2
+        url: http://182.254.192.61:8060/v3/api-docs/buyer
     use-root-path: true
