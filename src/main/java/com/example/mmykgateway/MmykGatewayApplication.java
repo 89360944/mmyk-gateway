@@ -46,7 +46,7 @@ public class MmykGatewayApplication {
         definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
             String name = routeDefinition.getId().replaceAll("-service", "");
             System.out.println(":::::::::::"+name);
-            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).addOpenApiCustomiser(new OpenApiCustomiser() {
+            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group("sssssssssssss").addOpenApiCustomiser(new OpenApiCustomiser() {
                 @Override
                 public void customise(OpenAPI openApi) {
                     openApi.addServersItem(new Server().url("worini").description("nmb"));
