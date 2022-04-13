@@ -32,26 +32,41 @@ import java.util.Optional;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public GroupedOpenApi petOpenApi() {
-        String paths[] = {"/pet/**"};
-        return GroupedOpenApi.builder().group("pets").pathsToMatch(paths)
-                .build();
-    }
+//    @Autowired
+//    RouteDefinitionLocator locator;
+//
+//    @Bean
+//    public List<GroupedOpenApi> apis() {
+//        List<GroupedOpenApi> groups = new ArrayList<>();
+//        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+//        assert definitions != null;
+//        definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
+//            String name = routeDefinition.getId().replaceAll("-service", "");
+//            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
+//        });
+//        return groups;
+//    }
 
-    @Bean
-    public GroupedOpenApi storeOpenApi() {
-        String paths[] = {"/store/**"};
-        return GroupedOpenApi.builder().group("stores").pathsToMatch(paths)
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi buyerOpenApi() {
-        String paths[] = {"/buyer/**"};
-        return GroupedOpenApi.builder().group("buyers").pathsToMatch(paths)
-                .build();
-    }
+//    @Bean
+//    public GroupedOpenApi petOpenApi() {
+//        String paths[] = {"/pet/**"};
+//        return GroupedOpenApi.builder().group("pets").pathsToMatch(paths)
+//                .build();
+//    }
+//
+//    @Bean
+//    public GroupedOpenApi storeOpenApi() {
+//        String paths[] = {"/store/**"};
+//        return GroupedOpenApi.builder().group("stores").pathsToMatch(paths)
+//                .build();
+//    }
+//
+//    @Bean
+//    public GroupedOpenApi buyerOpenApi() {
+//        String paths[] = {"/buyer/**"};
+//        return GroupedOpenApi.builder().group("buyers").pathsToMatch(paths)
+//                .build();
+//    }
 //    @Autowired
 //    RouteDefinitionLocator locator;
 //

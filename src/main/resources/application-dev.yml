@@ -64,8 +64,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://182.254.192.61:8761/eureka/
-#springdoc:
-#  swagger-ui:
-#    urls:
-#      - name: buyer
-#        url: /v3/api-docs/buyer
+springdoc:
+  swagger-ui:
+    urls:
+      - name: buyer
+        url: /v3/api-docs/buyer
