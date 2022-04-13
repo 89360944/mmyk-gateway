@@ -35,27 +35,27 @@ public class MmykGatewayApplication {
 //    public OpenAPI defineOpenApi() {
 //        return new OpenAPI()..addServersItem(new Server().url("worini").description("nmb"));
 //    }
-    @Autowired
-    RouteDefinitionLocator locator;
-
-    @Bean
-    public List<GroupedOpenApi> apis() {
-        List<GroupedOpenApi> groups = new ArrayList<>();
-        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
-        assert definitions != null;
-        definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
-            String name = routeDefinition.getId().replaceAll("-service", "");
-            System.out.println(":::::::::::"+name);
-            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group("zzzz").build());
+//    @Autowired
+//    RouteDefinitionLocator locator;
+//
+//    @Bean
+//    public List<GroupedOpenApi> apis() {
+//        List<GroupedOpenApi> groups = new ArrayList<>();
+//        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+//        assert definitions != null;
+//        definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
+//            String name = routeDefinition.getId().replaceAll("-service", "");
+//            System.out.println(":::::::::::"+name);
+//            //groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group("zzzz").build());
 //            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group("sssssssssssss").addOpenApiCustomiser(new OpenApiCustomiser() {
 //                @Override
 //                public void customise(OpenAPI openApi) {
 //                    openApi.addServersItem(new Server().url("worini").description("nmb"));
 //                }
 //            }).build());
-        });
-        return groups;
-    }
+//        });
+//        return groups;
+//    }
 
 //    @Bean
 //    public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {

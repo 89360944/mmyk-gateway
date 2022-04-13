@@ -1,7 +1,9 @@
 package com.example.mmykgateway;
 
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springdoc.core.*;
-import org.springdoc.core.providers.ActuatorProvider;
 import org.springdoc.webflux.api.MultipleOpenApiWebFluxResource;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.result.method.RequestMappingInfoHandlerMapping;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Configuration
@@ -54,22 +56,11 @@ public class SwaggerConfig {
     }
     // 重载默认的多重API定义接口，如果请求的分组为注册的服务ID，则返回对应服务的API定义
     @Bean
-    MultipleOpenApiWebFluxResource multipleOpenApiResource(List<GroupedOpenApi> groupedOpenApis,
-                                                           ObjectFactory<OpenAPIService> defaultOpenAPIBuilder, AbstractRequestService requestBuilder,
-                                                           GenericResponseService responseBuilder, OperationService operationParser,
-                                                           RequestMappingInfoHandlerMapping requestMappingHandlerMapping,
-                                                           SpringDocConfigProperties springDocConfigProperties,
-                                                           Optional<ActuatorProvider> actuatorProvider) {
+    MultipleOpenApiWebFluxResource multipleOpenApiWebFluxResource(List<GroupedOpenApi> groupedOpenApis, ObjectFactory<OpenAPIService> defaultOpenAPIBuilder, AbstractRequestService requestBuilder, GenericResponseService responseBuilder, OperationService operationParser, SpringDocConfigProperties springDocConfigProperties, SpringDocProviders springDocProviders) {
 
-        return new MultipleOpenApiWebFluxResource(groupedOpenApis,
-                defaultOpenAPIBuilder, requestBuilder,
-                responseBuilder, operationParser,
-                requestMappingHandlerMapping,
-                springDocConfigProperties,
-                actuatorProvider) {
-
-
-            public Mono<String> openapiJson(ServerHttpRequest serverHttpRequest, String apiDocsUrl, String group) throws JsonProcessingException {
+        return new MultipleOpenApiWebFluxResource(groupedOpenApis, defaultOpenAPIBuilder, requestBuilder, responseBuilder, operationParser, springDocConfigProperties, springDocProviders) {
+            @Override
+            public Mono<String> openapiJson(ServerHttpRequest serverHttpRequest, String apiDocsUrl, String group, Locale locale) throws JsonProcessingException {
                 List<ServiceInstance> serviceInstances = discoveryClient.getInstances(group);
                 if (!CollectionUtils.isEmpty(serviceInstances)) {
                     String gatewayUri = serverHttpRequest.getURI().getScheme() + "://" + serverHttpRequest.getURI().getHost();
@@ -83,7 +74,7 @@ public class SwaggerConfig {
                     openapiJson = openapiJson.replace(serviceUri, gatewayUri);
                     return Mono.just(openapiJson);
                 }
-                return openapiJson(serverHttpRequest, apiDocsUrl, group);
+                return super.openapiJson(serverHttpRequest, apiDocsUrl, group, locale);
             }
         };
     }
