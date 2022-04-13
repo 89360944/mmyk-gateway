@@ -4,8 +4,10 @@ package com.example.mmykgateway;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.*;
+import org.springdoc.core.customizers.ActuatorOperationCustomizer;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springdoc.webflux.api.MultipleOpenApiWebFluxResource;
 import org.springframework.beans.factory.ObjectFactory;
@@ -29,26 +31,43 @@ import java.util.Optional;
 
 @Configuration
 public class SwaggerConfig {
+
     @Bean
-    public GroupedOpenApi siteApi() {
-        return GroupedOpenApi.builder()
-                .group("site接口")
-                .addOpenApiCustomiser(new OpenApiCustomiser() {
-                    @Override
-                    public void customise(OpenAPI openApi) {
-                        openApi.addServersItem(new Server().url("worini").description("nmb"));
-                    }
-                })
-                .pathsToMatch("/hs/**")
+    public GroupedOpenApi petOpenApi() {
+        String paths[] = {"/pet/**"};
+        return GroupedOpenApi.builder().group("pets").pathsToMatch(paths)
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi storeOpenApi() {
+        String paths[] = {"/store/**"};
+        return GroupedOpenApi.builder().group("stores").pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi buyerOpenApi() {
+        String paths[] = {"/buyer/**"};
+        return GroupedOpenApi.builder().group("buyers").pathsToMatch(paths)
+                .build();
+    }
+//    @Autowired
+//    RouteDefinitionLocator locator;
+//
 //    @Bean
-//    public GroupedOpenApi adminApi() {
-//        return GroupedOpenApi.builder()
-//                .group("admin接口")
-//                .pathsToMatch("/hsType/**")
-//                .build();
+//    public List<GroupedOpenApi> apis() {
+//        List<GroupedOpenApi> groups = new ArrayList<>();
+//        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+//        System.out.println("zzzzzzzzzzzzzz "+definitions.size());
+//        definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach( routeDefinition -> {
+//            System.out.println(routeDefinition.getId() + ":" + routeDefinition.getUri().getScheme());
+//            String name = routeDefinition.getId().replaceAll("-service", "");
+//            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
+//        });
+//        return groups;
 //    }
+
 //    @Autowired
 //    RouteDefinitionLocator locator;
 //    @Autowired
