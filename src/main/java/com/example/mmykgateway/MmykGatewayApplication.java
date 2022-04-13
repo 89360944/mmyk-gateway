@@ -10,6 +10,7 @@ import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -30,24 +31,29 @@ public class MmykGatewayApplication {
         SpringApplication.run(MmykGatewayApplication.class, args);
     }
 
-    @Bean
-    public OpenAPI defineOpenApi() {
-        return new OpenAPI().addServersItem(new Server().url("worini").description("nmb"));
-    }
-//    @Autowired
-//    RouteDefinitionLocator locator;
-//
 //    @Bean
-//    public List<GroupedOpenApi> apis() {
-//        List<GroupedOpenApi> groups = new ArrayList<>();
-//        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
-//        assert definitions != null;
-//        definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
-//            String name = routeDefinition.getId().replaceAll("-service", "");
-//            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
-//        });
-//        return groups;
+//    public OpenAPI defineOpenApi() {
+//        return new OpenAPI()..addServersItem(new Server().url("worini").description("nmb"));
 //    }
+    @Autowired
+    RouteDefinitionLocator locator;
+
+    @Bean
+    public List<GroupedOpenApi> apis() {
+        List<GroupedOpenApi> groups = new ArrayList<>();
+        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+        assert definitions != null;
+        definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
+            String name = routeDefinition.getId().replaceAll("-service", "");
+            groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).addOpenApiCustomiser(new OpenApiCustomiser() {
+                @Override
+                public void customise(OpenAPI openApi) {
+                    openApi.addServersItem(new Server().url("worini").description("nmb"));
+                }
+            }).build());
+        });
+        return groups;
+    }
 
 //    @Bean
 //    public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
