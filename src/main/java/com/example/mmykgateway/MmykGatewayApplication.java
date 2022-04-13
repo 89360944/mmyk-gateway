@@ -8,6 +8,7 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,10 @@ public class MmykGatewayApplication {
         SpringApplication.run(MmykGatewayApplication.class, args);
     }
 
+    @Bean
+    public OpenAPI defineOpenApi() {
+        return new OpenAPI().addServersItem(new Server().url("worini").description("nmb"));
+    }
 //    @Autowired
 //    RouteDefinitionLocator locator;
 //
