@@ -72,6 +72,9 @@ spring:
     password: redis123456aB
   application:
     name: gateway
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
   port: 8060
 eureka:
